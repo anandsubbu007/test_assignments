@@ -1,0 +1,37 @@
+name: app
+
+packages:
+  - deriv_test
+  - deriv_di
+  - deriv_bloc
+
+scripts:
+  clean-all:
+    run: melos run build-clean && melos run flutter-clean
+
+  flutter-clean:
+    exec: flutter clean
+
+  build-clean:
+    run: melos exec flutter pub run build_runner clean
+
+  generate:
+    run: melos exec --scope=deriv_test,deriv_data  -- flutter pub run build_runner build --delete-conflicting-outputs
+
+  get:
+    exec: flutter pub get
+
+  tidy:
+    run: melos run format && melos run dart-fix
+
+  analyze:
+    exec: flutter analyze --fatal-infos --fatal-warnings
+
+  format:
+    exec: flutter format lib
+
+  dart-fix:
+    exec: dart fix --apply
+
+  test:
+    exec: flutter test --exclude-tags=golden
