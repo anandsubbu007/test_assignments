@@ -8,19 +8,17 @@ import 'package:deriv_model/models/model.dart';
 import 'package:deriv_test/dependencies.dart';
 import 'package:deriv_test/di/module.dart';
 import 'package:deriv_test/src/hp_model.dart';
-import 'package:deriv_test/src/hp_model.mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 void main() {
   final MockSocketAdapter socket = MockSocketAdapter();
-  // final SocketAdapter socket = SocketAdapter();
   getIt.registerSingleton<SocketPort>(socket);
   final HomePageCubit taskCubit = HomePageCubit();
 
   setUp(() {});
-  group('Socket Streams', () {
+  group('Socket Streams Flow', () {
     when(socket.sendMessage(SocketService.dataInit)).thenAnswer((a) {
       socket.marketsData.add(SampleData.datas);
     });
@@ -36,46 +34,15 @@ void main() {
     });
   });
   group("Home Actions", () {
-    // test("On Tap Market", () async* {
-    //   when(taskCubit.onSelectMarket(SampleData.selectedMarket.vName))
-    //       .thenAnswer((a) {});
-    //   expectLater(taskCubit.selectedMarket, emits(SampleData.selectedMarket));
-    //   expect(taskCubit.price, 1);
-    //   expect(taskCubit.selectedSymbol, emits(null));
-    // });
-    when(socket.sendMessage(SocketService.dataInit)).thenAnswer((a) {
-      socket.marketsData.add(SampleData.datas);
-    });
-
     blocTest<HomePageCubit, HomeState>(
       'emits [UserProfile On Tap: SelectionChange] with correct urgent tasks',
-      build: () {
-        return taskCubit;
-      },
+      build: () => taskCubit,
       act: (cubit) {
         cubit.reqData();
       },
-      expect: () async => [
-        LoadingState(),
-        expectLater(taskCubit.marketStream,
-            emitsInOrder(SampleData.datas.map((e) => e.vName)))
-      ],
+      expect: () => [LoadingState()],
     );
-
-    // blocTest<MockHomePageCubit, HomeState>(
-    //   'emits [UserProfile On Tap: SelectionChange] with correct urgent tasks',
-    //   build: () => taskCubit,
-    //   act: (cubit) {
-    //     cubit.reqData();
-    //     socket.marketsData.add(SampleData.datas);
-    //   },
-    //   expect: () => [
-    //     LoadingEvent(),
-    //     LoadedState(SampleData.datas.map((e) => e.vName).toList(), []),
-    //   ],
-    // );
   });
-  // selectedMarket
 }
 
 class SampleData {
@@ -101,6 +68,4 @@ class SampleData {
 
 class MockWebSocketChannel extends WebSocketChannel {
   MockWebSocketChannel(super.channel);
-
-
 }

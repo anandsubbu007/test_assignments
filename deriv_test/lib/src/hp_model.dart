@@ -7,10 +7,7 @@ import 'package:deriv_test/dependencies.dart';
 import 'package:deriv_test/di/module.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 
-@GenerateNiceMocks([MockSpec<HomePageCubit>()])
 @injectable
 class HomePageCubit extends BasePageViewModel<HomeState>
     implements HomePageAction {

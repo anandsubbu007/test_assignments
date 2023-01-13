@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:deriv_test/src/widgets/dropdown.dart';
 import 'package:deriv_test/src/widgets/price_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

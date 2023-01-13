@@ -398,7 +398,7 @@ packages:
     source: hosted
     version: "1.0.4"
   mockito:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: mockito
       url: "https://pub.dartlang.org"

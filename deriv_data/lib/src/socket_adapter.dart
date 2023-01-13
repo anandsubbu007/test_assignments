@@ -10,8 +10,9 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 // Annotation which generates the cat.mocks.dart library and the MockCat class.
 @GenerateNiceMocks([MockSpec<SocketAdapter>()])
 class SocketAdapter implements SocketPort {
-  // static const String socket =
-  //     'wss://ws.binaryws.com/websockets/v3?app_id=1089';
+  static WebSocketChannel testSocket = WebSocketChannel.connect(
+      Uri.parse('wss://ws.binaryws.com/websockets/v3?app_id=1089'));
+
   final WebSocketChannel channel;
 
   SocketAdapter(this.channel);
