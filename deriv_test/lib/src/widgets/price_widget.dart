@@ -18,7 +18,7 @@ class Pricing extends StatelessWidget {
               } else if (state is NoPriceData) {
                 return const SizedBox();
               } else if (state is PriceLoaded) {
-                return PriceWidget(state: state);
+                return PriceWidget(key: const Key('Price'), state: state);
               }
               return const SizedBox();
             }));

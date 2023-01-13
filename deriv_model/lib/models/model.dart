@@ -1,4 +1,9 @@
-class ActiveSymbols {
+import 'dart:convert';
+
+import 'package:equatable/equatable.dart';
+
+// ignore: must_be_immutable
+class ActiveSymbols extends Equatable {
   int? allowForwardStarting;
   String? displayName;
   int? displayOrder;
@@ -70,26 +75,38 @@ class ActiveSymbols {
 
   String get vName => marketDisplayName ?? market ?? displayName ?? '';
   String get vSymbol => symbol ?? '';
+
+  @override
+  List<Object?> get props => [vName, vSymbol];
 }
 
-class Tick {
+// ignore: must_be_immutable
+class Tick extends Equatable {
   double? ask;
   double? bid;
   int? epoch;
   late String id;
   int? pipSize;
   late double quote;
-  String? symbol;
+  String symbol;
+  Tick(
+      {this.ask,
+      this.bid,
+      this.epoch,
+      required this.id,
+      this.pipSize,
+      required this.quote,
+      required this.symbol});
 
-  Tick.fromJson(Map<String, dynamic> json) {
-    ask = double.tryParse((json['ask'].toString())) ?? 0;
-    bid = double.tryParse((json['bid'].toString())) ?? 0;
-    epoch = int.tryParse((json['epoch'].toString())) ?? 0;
-    id = json['id'] ?? '';
-    pipSize = json['pip_size'];
-    quote = double.tryParse((json['quote'].toString())) ?? 0;
-    symbol = json['symbol'];
-  }
+  // Tick.fromJson(Map<String, dynamic> json) {
+  //   ask = double.tryParse((json['ask'].toString())) ?? 0;
+  //   bid = double.tryParse((json['bid'].toString())) ?? 0;
+  //   epoch = int.tryParse((json['epoch'].toString())) ?? 0;
+  //   id = json['id'] ?? '';
+  //   pipSize = json['pip_size'];
+  //   quote = double.tryParse((json['quote'].toString())) ?? 0;
+  //   symbol = json['symbol'];
+  // }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -101,5 +118,20 @@ class Tick {
     data['quote'] = quote;
     data['symbol'] = symbol;
     return data;
+  }
+
+  @override
+  List<Object?> get props => [symbol, id];
+
+  factory Tick.fromMap(Map<String, dynamic> map) {
+    return Tick(
+      ask: double.tryParse((map['ask'].toString())) ?? 0,
+      bid: double.tryParse((map['bid'].toString())) ?? 0,
+      epoch: int.tryParse((map['epoch'].toString())) ?? 0,
+      id: map['id'],
+      pipSize: map['pipSize']?.toInt(),
+      quote: map['quote'],
+      symbol: map['symbol'] ?? '',
+    );
   }
 }

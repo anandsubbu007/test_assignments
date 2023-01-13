@@ -33,13 +33,14 @@ class _LoadedBodyState extends State<LoadedBody> {
               builder: (context, snapshot) {
                 final data = snapshot.data;
                 return AppDropDown<String>(
+                    // key: const Key('Market'),
                     titles: 'Market',
                     items: widget.model.markets
-                        .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                        .map((e) => DropdownMenuItem(
+                            key: Key('K_$e'), value: e, child: Text(e)))
                         .toList(),
                     selected: data,
                     onChange: (d) async {
-                      // widget.model.add(SelectMarketEvent(market: d!));
                       widget.model.onSelectMarket(d!);
                       return true;
                     });
@@ -49,13 +50,14 @@ class _LoadedBodyState extends State<LoadedBody> {
               builder: (context, snapshot) {
                 final data = snapshot.data;
                 return AppDropDown(
+                    // key: const Key('Symbol'),
                     titles: 'Symbol',
                     items: widget.model.symbols
-                        .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                        .map((e) => DropdownMenuItem(
+                            key: Key('K_$e'), value: e, child: Text(e)))
                         .toList(),
                     selected: data,
                     onChange: (d) async {
-                      // widget.model.add(SelectSymbolEvent(symbol: d!));
                       widget.model.onSelectSymbol(d!);
                       return true;
                     });

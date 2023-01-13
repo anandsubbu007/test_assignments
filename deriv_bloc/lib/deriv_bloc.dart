@@ -1,7 +1,6 @@
 library deriv_bloc;
 
 export 'src/base_page/base_page_view_model.dart';
-export 'src/base_page/base_event.dart';
 export 'src/base_page/base_state.dart';
 export 'src/base_page/base_view_model.dart';
 export 'src/base_page/base_page.dart';

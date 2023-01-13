@@ -24,7 +24,7 @@ extension GetItInjectableX on _i1.GetIt {
       environmentFilter,
     );
     final appModule = _$AppModule();
-    gh.factory<_i3.HomeViewModel>(() => _i3.HomeViewModel());
+    gh.factory<_i3.HomePageCubit>(() => _i3.HomePageCubit());
     gh.factory<String>(
       () => appModule.socketUrl,
       instanceName: 'socketUrl',

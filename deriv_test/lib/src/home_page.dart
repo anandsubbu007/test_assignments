@@ -3,7 +3,7 @@ import 'package:deriv_test/src/hp_model.dart';
 import 'package:deriv_test/src/hp_view.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends BasePage<HomeViewModel> {
+class HomePage extends BasePage<HomePageCubit> {
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -11,9 +11,9 @@ class HomePage extends BasePage<HomeViewModel> {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends BaseStatefulPage<HomeViewModel, HomePage> {
+class _HomePageState extends BaseStatefulPage<HomePageCubit, HomePage> {
   @override
-  HomeViewModel get model => HomeViewModel();
+  HomePageCubit get model => HomePageCubit();
 
   @override
   PreferredSizeWidget? buildAppbar(model) {
@@ -24,7 +24,7 @@ class _HomePageState extends BaseStatefulPage<HomeViewModel, HomePage> {
   }
 
   @override
-  void onModelReady(HomeViewModel model) {
+  void onModelReady(HomePageCubit model) {
     model.reqData();
     model.listenToSocket();
     super.onModelReady(model);
@@ -36,7 +36,7 @@ class _HomePageState extends BaseStatefulPage<HomeViewModel, HomePage> {
   }
 
   @override
-  Widget buildView(BuildContext context,HomeViewModel model) {
+  Widget buildView(BuildContext context, HomePageCubit model) {
     return HomePageBody(model);
   }
 }

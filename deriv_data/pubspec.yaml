@@ -16,6 +16,7 @@ dependencies:
   deriv_model:
     path: ../deriv_model
   web_socket_channel: ^2.3.0
+  mockito: ^5.3.2
     
 
 dev_dependencies:

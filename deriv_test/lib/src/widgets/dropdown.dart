@@ -21,18 +21,24 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-        child: DropdownButtonHideUnderline(
-            child: DropdownButtonFormField<T>(
-          items: widget.items,
-          decoration: const InputDecoration(border: OutlineInputBorder()),
-          hint: Text(widget.titles),
-          value: widget.selected,
-          onChanged: (s) async {
-            final canI = await widget.onChange(s);
-            if (canI) {
-              setState(() {});
-            }
-          },
-        )));
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4), border: Border.all()),
+          child: DropdownButtonHideUnderline(
+              child: DropdownButton<T>(
+            items: widget.items,
+            key: Key(widget.titles),
+            // decoration: const InputDecoration(border: OutlineInputBorder()),
+            hint: Text(widget.titles),
+            value: widget.selected,
+            onChanged: (s) async {
+              final canI = await widget.onChange(s);
+              if (canI) {
+                setState(() {});
+              }
+            },
+          )),
+        ));
   }
 }

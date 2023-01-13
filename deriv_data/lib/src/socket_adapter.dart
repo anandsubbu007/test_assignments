@@ -1,29 +1,32 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:deriv_data/deriv_data.dart';
 import 'package:deriv_model/models/model.dart';
+import 'package:mockito/annotations.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-///
+// Annotation which generates the cat.mocks.dart library and the MockCat class.
+@GenerateNiceMocks([MockSpec<SocketAdapter>()])
 class SocketAdapter implements SocketPort {
-  static const String socket =
-      'wss://ws.binaryws.com/websockets/v3?app_id=1089';
+  // static const String socket =
+  //     'wss://ws.binaryws.com/websockets/v3?app_id=1089';
   final WebSocketChannel channel;
 
   SocketAdapter(this.channel);
 
   @override
   void sendMessage(String message) {
-    print('Sending Message: $message');
+    log('Sending Message: $message');
     channel.sink.add(message);
   }
 
-  bool isListening = false;
+  bool _isListening = false;
   @override
   listenToSocket() {
-    if (isListening) return;
-    isListening = true;
+    if (_isListening) return;
+    _isListening = true;
     channel.stream.listen((event) {
       if (event != null && event is String) {
         final datas = json.decode(event);
@@ -40,11 +43,13 @@ class SocketAdapter implements SocketPort {
         } else if (msgType == 'tick') {
           final tick = datas['tick'];
           if (tick != null) {
-            final ticket = Tick.fromJson(tick);
+            final ticket = Tick.fromMap(tick);
             tickData.add(ticket);
           }
+        } else if (msgType == 'forget') {
+          // Forgeted Id
         } else {
-          print('==> $msgType');
+          log('Unknown Message Type: $msgType');
           // errorController.add('Unknown Event');
         }
       }

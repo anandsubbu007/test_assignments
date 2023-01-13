@@ -12,10 +12,6 @@ abstract class SocketPort {
   Stream<List<ActiveSymbols>> get marketsDataStream;
   Stream<Tick> get tickDataStream;
   Stream get errorStream;
-  // Stream<String> get selectedMarket;
-  // Stream<String?> get selectedSymbol;
-
   void sendMessage(String message);
   listenToSocket();
-  // onError(void Function(dynamic error) errorHandler);
 }

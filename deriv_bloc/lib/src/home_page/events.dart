@@ -2,44 +2,42 @@ import 'package:deriv_bloc/deriv_bloc.dart';
 import 'package:deriv_model/models/model.dart';
 import 'package:flutter/material.dart';
 
-abstract class HomeEvent extends BaseEvent {}
+class LoadingEvent extends HomeState {}
 
-class LoadingEvent extends HomeEvent {}
-
-class LoadedEvent extends HomeEvent {
+class LoadedEvent extends HomeState {
   final bool append = true;
   final List<ActiveSymbols> symbols;
   LoadedEvent(this.symbols);
 }
 
-class ErrorLoadEvent extends HomeEvent {
+class ErrorLoadEvent extends HomeState {
   final String onMessage;
   final dynamic error;
   ErrorLoadEvent(this.onMessage, {required this.error});
 }
 
-class SelectMarketEvent extends HomeEvent {
+class SelectMarketEvent extends HomeState {
   String market;
   SelectMarketEvent({
     required this.market,
   });
 }
 
-class SelectSymbolEvent extends HomeEvent {
+class SelectSymbolEvent extends HomeState {
   String symbol;
   SelectSymbolEvent({
     required this.symbol,
   });
 }
 
-class NewTickEvent extends HomeEvent {
+class NewTickEvent extends HomeState {
   Tick tick;
   NewTickEvent({
     required this.tick,
   });
 }
 
-abstract class PriceEvent extends BaseEvent {
+abstract class PriceEvent {
   double get price;
 }
 

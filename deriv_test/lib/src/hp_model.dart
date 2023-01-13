@@ -1,17 +1,18 @@
 import 'dart:async';
-import 'package:deriv_bloc/deriv_bloc.dart';
 
+import 'package:deriv_bloc/deriv_bloc.dart';
 import 'package:deriv_data/deriv_data.dart';
 import 'package:deriv_model/models/model.dart';
 import 'package:deriv_test/dependencies.dart';
 import 'package:deriv_test/di/module.dart';
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
+@GenerateNiceMocks([MockSpec<HomePageCubit>()])
 @injectable
-class HomeViewModel extends BasePageViewModel<HomeEvent, HomeState>
+class HomePageCubit extends BasePageViewModel<HomeState>
     implements HomePageAction {
   List<ActiveSymbols> datas = [];
 
@@ -23,61 +24,54 @@ class HomeViewModel extends BasePageViewModel<HomeEvent, HomeState>
   StreamController<PriceEvent> priceEvent =
       StreamController<PriceEvent>.broadcast();
 
-  HomeEvent? _curEvent;
   late final SocketPort adapter;
 
-  HomeViewModel() : super(LoadingState()) {
+  HomePageCubit() : super(LoadingState()) {
     adapter = getIt.get<SocketPort>();
     adapter.sendMessage(SocketService.dataInit);
     adapter.listenToSocket();
-    on<HomeEvent>(mapToEvent);
+    // on<HomeEvent>(mapToEvent);
   }
 
-  Future mapToEvent(HomeEvent event, Emitter<HomeState> emit) async {
-    _curEvent = event;
-    // print('event: $event');
-    if (event is LoadingEvent) {
+  Future mapToEvent(HomeState state) async {
+    if (state is LoadingEvent) {
       emit(LoadingState());
-    } else if (event is LoadedEvent) {
-      if (!event.append) datas.clear();
-      datas.addAll(event.symbols);
+    } else if (state is LoadedEvent) {
+      if (!state.append) datas.clear();
+      datas.addAll(state.symbols);
       emit(LoadedState(markets, symbols));
-    } else if (event is ErrorLoadEvent) {
-      emit(ErrorLoadedState(error: event.error));
-    } else if (event is SelectMarketEvent) {
-      onSelectMarket(event.market);
-    } else if (event is SelectSymbolEvent) {
-      onSelectSymbol(event.symbol);
-    } else if (event is NewTickEvent) {
-      onNewTicket(event.tick);
+    } else if (state is ErrorLoadEvent) {
+      emit(ErrorLoadedState(error: state.error));
+    } else if (state is SelectMarketEvent) {
+      onSelectMarket(state.market);
+    } else if (state is SelectSymbolEvent) {
+      onSelectSymbol(state.symbol);
+    } else if (state is NewTickEvent) {
+      onNewTicket(state.tick);
     }
-  }
-
-  @override
-  String toString() {
-    return 'HomeEvent: $_curEvent';
   }
 
   String get tickTriger => SocketService.tickTriger(_selectedSymbol ?? "");
   String get forgetId => SocketService.forgetId(_listeningId ?? '');
 
   void reqData() {
-    add(LoadingEvent());
+    mapToEvent(LoadingEvent());
     adapter.sendMessage(SocketService.dataInit);
   }
 
   listenToSocket() {
     adapter.marketsDataStream.listen((data) {
-      add(LoadedEvent(data));
+      mapToEvent(LoadedEvent(data));
     });
     adapter.tickDataStream.listen((ticket) {
+      // print('==> $_selectedSymbol');
       if (_selectedSymbol == ticket.symbol) {
         _listeningId = ticket.id;
-        add(NewTickEvent(tick: ticket));
+        mapToEvent(NewTickEvent(tick: ticket));
       }
     });
     adapter.errorStream.listen((error) {
-      add(ErrorLoadEvent('Socket Error', error: error.toString()));
+      mapToEvent(ErrorLoadEvent('Socket Error', error: error.toString()));
     });
   }
 
@@ -106,7 +100,6 @@ class HomeViewModel extends BasePageViewModel<HomeEvent, HomeState>
 
   @override
   onSelectSymbol(String? market) {
-    // if (_selectedSymbol != null) {}
     _selectedSymbol = market;
     selectedSymbol.add(market);
     if (market != null) {
