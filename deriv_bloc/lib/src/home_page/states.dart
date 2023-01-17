@@ -1,5 +1,4 @@
 import 'package:deriv_bloc/deriv_bloc.dart';
-import 'package:equatable/equatable.dart';
 
 class HomeState extends BaseState {
 }
@@ -17,6 +16,7 @@ class LoadedState extends HomeState {
   List<Object?> get props => [...markets, ...symbols];
 }
 
+// ignore: must_be_immutable
 class ErrorLoadedState extends HomeState {
   String error;
   ErrorLoadedState({

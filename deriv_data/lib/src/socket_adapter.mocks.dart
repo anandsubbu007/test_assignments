@@ -2,7 +2,7 @@
 // in deriv_data/src/socket_adapter.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
+// ignore_for_file: no_leading_underscores_for_library_prefixes, override_on_non_overriding_member, unused_element
 import 'dart:async' as _i3;
 
 import 'package:deriv_data/deriv_data.dart' as _i4;

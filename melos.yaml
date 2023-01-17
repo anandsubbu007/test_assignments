@@ -2,8 +2,9 @@ name: app
 
 packages:
   - deriv_test
-  - deriv_di
+  - deriv_data
   - deriv_bloc
+  - deriv_model
 
 scripts:
   clean-all:

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:deriv_bloc/deriv_bloc.dart';
 import 'package:deriv_model/models/model.dart';
 import 'package:flutter/material.dart';
