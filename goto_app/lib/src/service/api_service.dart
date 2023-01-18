@@ -12,11 +12,17 @@ enum SortBy {
 }
 
 class GitApiService {
-  static String url(String sortBy) {
+  static final GitApiService _singleton = GitApiService._internal();
+  static GitApiService instance = GitApiService();
+  factory GitApiService() => _singleton;
+
+  GitApiService._internal();
+
+  String url(String sortBy) {
     return 'https://api.github.com/orgs/octokit/repos?sort=$sortBy';
   }
 
-  static Future<List<RepoDataM>> retriveApiData(SortBy sortBy) async {
+  Future<List<RepoDataM>> retriveApiData(SortBy sortBy) async {
     var response = await http.get(Uri.parse(url(sortBy.param)));
     List<RepoDataM> repos = [];
     if (response.statusCode != 404) {

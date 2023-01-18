@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:goto_app/src/model/data_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +20,7 @@ class LocalDb {
 
   Future<void> saveGithubRepo(List<RepoDataM> data) async {
     final dataEncoded = data.map((x) => x.toMap()).toList();
-    print('dataEncoded: $dataEncoded');
+    // print('dataEncoded: $dataEncoded');
     await prefs.setStringList('data', dataEncoded);
   }
 

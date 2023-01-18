@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:goto_app/src/service/local_storage.dart';
 
-import 'widget_test.dart';
+import 'bloc_test.dart';
 
 class MockSecureStorage extends Mock implements SharedPreferences {}
 
@@ -17,18 +17,14 @@ void main() {
     setUp(() async {
       LocalDb.instance.initSync(secureStorage);
     });
-
-    // test('saveGithubRepo', () {
-    //   when(
-    //     () => secureStorage.setStringList('data', [any(named: 'value')]),
-    //     // ignore: null_argument_to_non_null_type
-    //   ).thenAnswer((inv) {
-    //     return Future.value(true);
-    //   });
-
-    //   expect(LocalDb.instance.saveGithubRepo(SampleData.dataLst), completes);
-    // });
-
+    group('RepoModel', () {
+      test('value comparison', () {
+        expect(SampleData.initialItem, SampleData.initialItem);
+      });
+      test('props value comparison', () {
+        expect(SampleData.initialItem.props, SampleData.initialItem.props);
+      });
+    });
     test('get GithubRepo from local data source', () {
       final List<String> encoded =
           SampleData.dataLst.map((x) => x.toMap()).toList();

@@ -120,7 +120,7 @@ class __RepoAddDetailsState extends State<_RepoAddDetails> {
         children: [
           if (widget.data.vDetails.isNotEmpty) const SizedBox(height: 5),
           if (widget.data.vDetails.isNotEmpty)
-            Text(widget.data.vDetails,
+            TextFadeIn(widget.data.vDetails,
                 style: context.textThem.bodySmall
                     ?.copyWith(color: Colors.black87)),
           const SizedBox(height: 5),

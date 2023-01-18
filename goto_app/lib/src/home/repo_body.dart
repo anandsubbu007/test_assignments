@@ -11,6 +11,7 @@ class RepoBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      key: const Key('RepoBody_ListView'),
       padding: const EdgeInsets.all(0),
       separatorBuilder: (context, index) =>
           const Divider(height: 1, endIndent: 10, indent: 10),

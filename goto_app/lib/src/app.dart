@@ -23,28 +23,25 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
-        actions: const [DotMenu()],
+        actions: const [DotMenu(key: Key('DotMenu'))],
       ),
-      body: RefreshHandler(
-        onRefresh: () {},
-        child: const _Body(),
-      ),
+      body: const RefreshHandler(child: _Body()),
     );
   }
 }
 
 class RefreshHandler extends StatelessWidget {
-  final Function() onRefresh;
   final Widget child;
-  const RefreshHandler(
-      {super.key, required this.onRefresh, required this.child});
+  const RefreshHandler({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      key: const Key('RefreshIndicator'),
       onRefresh: () async {
         await context.read<RepoCubit>().fetchData();
       },
+      color: Colors.black,
       child: child,
     );
   }
@@ -57,11 +54,11 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<RepoCubit>().state;
     if (state is RepoLoading) {
-      return const LoadingBody();
+      return const LoadingBody(key: Key('Loading'));
     } else if (state is RepoErrorPg) {
       return ErrorBody(error: state.error);
     } else if (state is RepoOnData) {
-      return RepoBody(datas: state.data);
+      return RepoBody(key: const Key('RepoBody'), datas: state.data);
     }
     return const SizedBox();
   }
