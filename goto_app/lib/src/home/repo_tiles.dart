@@ -12,7 +12,6 @@ class UserTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // bool isLoading = data == null;
     final ValueNotifier<bool> isExpanded = ValueNotifier<bool>(false);
     Widget avatar() => CircleAvatar(
         maxRadius: 20,

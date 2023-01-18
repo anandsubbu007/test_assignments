@@ -9,24 +9,30 @@ class DotMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
-      onSelected: (val) {
-        context.read<RepoCubit>().fetchData(val);
-      },
-      padding: const EdgeInsets.only(right: 24, left: 10),
-      position: PopupMenuPosition.under,
-      itemBuilder: (context) {
-        return SortBy.values
-            .map((e) => PopupMenuItem(
-                  value: e,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                  child: Text('Sort by ${e.title}',
-                      style: context.textThem.bodyLarge),
-                ))
-            .toList();
-      },
-      child: const Icon(Icons.more_vert_sharp),
+    return Padding(
+      padding: const EdgeInsets.only(left: 5),
+      child: PopupMenuButton(
+        onSelected: (val) {
+          context.read<RepoCubit>().fetchData(val);
+        },
+        // padding: const EdgeInsets.only(right: 30, left: 20),
+        position: PopupMenuPosition.under,
+        itemBuilder: (context) {
+          return SortBy.values
+              .map((e) => PopupMenuItem(
+                    value: e,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                    child: Text('Sort by ${e.title}',
+                        style: context.textThem.bodyLarge),
+                  ))
+              .toList();
+        },
+        child: const Padding(
+          padding: EdgeInsets.only(right: 12, left: 8),
+          child: Icon(Icons.more_vert_sharp),
+        ),
+      ),
     );
   }
 }
