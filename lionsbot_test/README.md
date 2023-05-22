@@ -39,6 +39,7 @@ These credentials have been manually added to lib\db\db.dart path
  - Unit Testing haven't been done. since, it is a UI Assignment
  - Themeing haven't been used. since it is not mentioned in assignment
  - MVP Design Pattern & using GetX for state management. (since then is not must data flow. static datas has been used. These can be found in `controller` folder) 
+ - Please Note: Exact colors, icons, text styles haven't beed used on app as per reference given
 
 
 Adding Images
