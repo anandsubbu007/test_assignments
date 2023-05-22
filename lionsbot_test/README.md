@@ -43,13 +43,21 @@ These credentials have been manually added to lib\db\db.dart path
 
 Adding Images
 
-![WhatsApp Image 2023-05-22 at 12 45 00 PM (1)](https://github.com/anandsubbu007/test_assignments/assets/55450843/2f827564-a6e0-4fc8-860e-67ad4e9c7dde)
+## Login Page UI
 
-![WhatsApp Image 2023-05-22 at 12 45 00 PM](https://github.com/anandsubbu007/test_assignments/assets/55450843/7913a95e-a3fe-48dc-a0da-6c89c66692de)
+![Login UI](https://github.com/anandsubbu007/test_assignments/assets/55450843/2f827564-a6e0-4fc8-860e-67ad4e9c7dde)
 
-![WhatsApp Image 2023-05-22 at 12 45 01 PM (1)](https://github.com/anandsubbu007/test_assignments/assets/55450843/72a0ef70-8d5e-4f1d-8c0d-3f3bb2f47419)
+## Profile Page UI
 
-![WhatsApp Image 2023-05-22 at 12 45 01 PM](https://github.com/anandsubbu007/test_assignments/assets/55450843/0dc5da48-186d-49b3-8f5f-54f8886a2965)
+![Profile UI](https://github.com/anandsubbu007/test_assignments/assets/55450843/72a0ef70-8d5e-4f1d-8c0d-3f3bb2f47419)
+
+## Remote Control Page on Slide closed
+
+![Remote Control_1](https://github.com/anandsubbu007/test_assignments/assets/55450843/7913a95e-a3fe-48dc-a0da-6c89c66692de)
+
+## Remote Control Page on Slide Open
+
+![Remote Control_1](https://github.com/anandsubbu007/test_assignments/assets/55450843/0dc5da48-186d-49b3-8f5f-54f8886a2965)
 
 
 
