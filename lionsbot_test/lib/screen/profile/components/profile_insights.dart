@@ -149,7 +149,7 @@ class PointTabDetails extends StatelessWidget {
         padding: EdgeInsets.zero,
         itemCount: data.length,
         itemBuilder: (ctx, i) {
-          return listItem(data[i]);
+          return InkWell(onTap: (){}, child: listItem(data[i]));
         });
   }
 }

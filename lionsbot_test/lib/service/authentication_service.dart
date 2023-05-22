@@ -15,6 +15,7 @@ class AuthenticationService extends GetxService {
     isLogged = false;
   }
 
+
   void login(String username, String password) async {
     final user = await RestData().login(username, password);
     if (user == null) {

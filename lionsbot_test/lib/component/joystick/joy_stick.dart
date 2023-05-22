@@ -119,7 +119,7 @@ class _JoyStickState extends State<JoyStick> {
                   width: widget.stickRadius * 2,
                   height: widget.stickRadius * 2,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 66, 156, 221),
+                    color: const Color.fromARGB(255, 35, 145, 223),
                     border: Border.all(
                         color: const Color.fromARGB(255, 109, 174, 221),
                         width: 3,
