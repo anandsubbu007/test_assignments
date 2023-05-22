@@ -1,5 +1,5 @@
 import 'db.dart';
-import 'user.dart';
+import 'models/user.dart';
 
 class RestData {
   Future<User?> login(String username, String password) async {

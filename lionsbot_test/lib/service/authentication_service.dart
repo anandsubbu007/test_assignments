@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:lionsbot_test/db/rest_data.dart';
 import '../screen/login_screen.dart';
-import '../screen/profile_screen.dart';
+import '../screen/profile/profile_screen.dart';
 
 class AuthenticationService extends GetxService {
   bool isLogged = false;
@@ -30,7 +30,7 @@ class AuthenticationService extends GetxService {
     username = usr.username;
     profile = usr.pic;
     isLogged = true;
-    Get.to(() => ProfileScreen());
+    Get.to(() => const ProfileScreen());
   }
 
   void processLogout() {

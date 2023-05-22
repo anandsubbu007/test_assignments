@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_const
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,123 +14,119 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   AuthController authController = Get.put(AuthController());
   bool _showText = true;
-  void onTogle() {
-    setState(() {
-      _showText = !_showText;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [Colors.pinkAccent, Colors.blue, Colors.white],
-        ),
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [Colors.pinkAccent, Colors.blue, Colors.white]),
       ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          elevation: 0,
+      child: SafeArea(
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
           backgroundColor: Colors.transparent,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+          appBar: AppBar(elevation: 0, backgroundColor: Colors.transparent),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
               Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(10),
-                  child: const Text(
+                  child: Text(
                     'Log In',
-                    style: TextStyle(
-                        color: Color(0xFFFAF8F9),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 32),
+                    style: textTheme.titleLarge!
+                        .copyWith(color: const Color(0xFFFAF8F9)),
                   )),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 60, bottom: 0),
-                //padding: EdgeInsets.symmetric(horizontal: 15),
-                child: TextField(
-                  obscureText: false,
-                  decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Color(0xFFFAF8F9),
-                      border: const OutlineInputBorder(),
-                      // labelText: 'Email',
-                      hintText: 'Email'),
-                  controller: authController.usernameController,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 40, bottom: 0),
-                //padding: EdgeInsets.symmetric(horizontal: 15),
-                child: TextField(
-                  obscureText: _showText,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color(0xFFFAF8F9),
-                      suffixIcon: TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: !_showText ? Colors.grey : Colors.blue, padding: const EdgeInsets.all(16.0),
-                          textStyle: const TextStyle(fontSize: 15),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15.0, right: 15.0, top: 60, bottom: 0),
+                        child: TextField(
+                          obscureText: false,
+                          decoration: const InputDecoration(
+                              filled: true,
+                              fillColor: Color(0xFFFAF8F9),
+                              border: OutlineInputBorder(),
+                              hintText: 'Email'),
+                          controller: authController.usernameController,
                         ),
-                        onPressed: onTogle,
-                        child: Text(!_showText ? "hide" : "show"),
                       ),
-                      border: const OutlineInputBorder(),
-                      // labelText: 'Password',
-                      hintText: 'Password'),
-                  controller: authController.passwordController,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 100, bottom: 0),
-                child: SizedBox(
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                      )),
-                    ),
-                    onPressed: () {
-                      authController.login();
-                    },
-                    child: const Row(
-                      children: <Widget>[
-                        Spacer(),
-                        Text(
-                          "Log In",
-                          style: TextStyle(
-                            fontSize: 18,
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15.0, right: 15.0, top: 40, bottom: 0),
+                        child: StatefulBuilder(builder: (context, setS) {
+                          return TextField(
+                            obscureText: _showText,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: const Color(0xFFFAF8F9),
+                                suffixIcon: TextButton(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor:
+                                        !_showText ? Colors.grey : Colors.blue,
+                                    padding: const EdgeInsets.all(16.0),
+                                    textStyle: const TextStyle(fontSize: 15),
+                                  ),
+                                  onPressed: () => setS(() {
+                                    _showText = !_showText;
+                                  }),
+                                  child: Text(!_showText ? "hide" : "show"),
+                                ),
+                                border: const OutlineInputBorder(),
+                                hintText: 'Password'),
+                            controller: authController.passwordController,
+                          );
+                        }),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15.0, right: 15.0, top: 100, bottom: 0),
+                        child: SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                              )),
+                            ),
+                            onPressed: () {
+                              authController.login();
+                            },
+                            child: Text("Log In",
+                                textAlign: TextAlign.center,
+                                style: textTheme.titleLarge!
+                                    .copyWith(color: Colors.white)),
                           ),
                         ),
-                        Spacer(),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    TextButton(
-                      child: const Text(
-                        'Forgot your password?',
-                        style: TextStyle(fontSize: 16),
                       ),
-                      onPressed: () {},
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            TextButton(
+                              child: const Text(
+                                'Forgot your password?',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              onPressed: () {},
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

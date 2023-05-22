@@ -9,5 +9,10 @@ To create a functional mobile application for users to:
  - flutter pub get
  - flutter run
 
+credential
+Anand - 123456
 
 Uni test hasn't been added
+
+Flutter version
+Dart version

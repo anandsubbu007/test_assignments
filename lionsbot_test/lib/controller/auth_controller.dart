@@ -1,10 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../service/authentication_service.dart';
 
 class AuthController extends GetxController {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController usernameController =
+      TextEditingController(text: kDebugMode ? 'Anand' : '');
+  TextEditingController passwordController =
+      TextEditingController(text: kDebugMode ? '123456' : '');
   AuthenticationService authService = Get.put(AuthenticationService());
 
   void login() async {

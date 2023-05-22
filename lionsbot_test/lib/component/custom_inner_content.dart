@@ -17,34 +17,29 @@ class _CustomInnerContentState extends State<CustomInnerContent> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 12),
+        SizedBox(height: 10),
         CustomDraggingHandle(),
-        SizedBox(height: 12),
+        SizedBox(height: 8),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.settings,
-              size: 25,
-              color: Colors.white,
-            ),
-            SizedBox(height: 12),
-            Text("settings",
+            Icon(Icons.settings, size: 30, color: Colors.white),
+            SizedBox(height: 5),
+            Text("SETTINGS",
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
                     color: Colors.white)),
-            SizedBox(height: 20),
-            Row(children: [
-              Padding(
-                  padding: EdgeInsets.fromLTRB(30, 30, 0, 0),
-                  child: Text(
-                      "Speed : ${_currentSliderValue.round()}",
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)))
-            ]),
+            SizedBox(height: 4),
+            Padding(
+                padding: EdgeInsets.fromLTRB(30, 30, 0, 0),
+                child: Text("Speed : ${_currentSliderValue.round()}",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white))),
             SliderTheme(
               data: SliderThemeData(
                   trackHeight: 10,
@@ -64,6 +59,7 @@ class _CustomInnerContentState extends State<CustomInnerContent> {
                 },
               ),
             ),
+            SizedBox(height: 10)
           ],
         )
       ],

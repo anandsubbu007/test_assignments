@@ -6,18 +6,18 @@
     "configurations": [
         
         {
-            "name": "lionsbot_assesment-main",
+            "name": "lionsbot_test",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "lionsbot_assesment-main (profile mode)",
+            "name": "lionsbot_test (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "lionsbot_assesment-main (release mode)",
+            "name": "lionsbot_test (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
