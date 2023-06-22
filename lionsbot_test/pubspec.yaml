@@ -1,0 +1,28 @@
+name: lionsbot_test
+description: A new Flutter project.
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+dependencies:
+  cupertino_icons: ^1.0.2
+  file: ^6.1.4
+  flutter:
+    sdk: flutter
+  flutter_gradient_colors: ^2.1.1
+  fluttertoast: ^8.2.1
+  get: ^4.6.5
+  path: ^1.8.3
+  path_provider: ^2.0.15
+  simple_gradient_text: ^1.2.4
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
