@@ -14,8 +14,15 @@ class _ProfilePgState extends State<ProfilePg> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Profile"), centerTitle: true),
+      appBar: AppBar(
+          title: const Text("Profile"),
+          centerTitle: true,
+          leading: IconButton(
+              key: const Key("pop"),
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back_rounded))),
       body: Padding(
+        key: const Key("profile_pg"),
         padding: const EdgeInsets.all(5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -1,30 +1,47 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_test/flutter_test.dart';
-
-// import 'package:fininfocom/main.dart';
+import 'package:fininfocom/main.dart';
+import 'package:fininfocom/presentaion/profile_pg.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  // testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-  //   // Build our app and trigger a frame.
-  //   await tester.pumpWidget(const MyApp());
+  setUp(() {});
 
-  //   // Verify that our counter starts at 0.
-  //   expect(find.text('0'), findsOneWidget);
-  //   expect(find.text('1'), findsNothing);
+  group("Widget Testing", ()  {
+    testWidgets("", (tester) async {
+      await tester.pumpWidget(const TickerMode(enabled: false, child: MyApp()));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
 
-  //   // Tap the '+' icon and trigger a frame.
-  //   await tester.tap(find.byIcon(Icons.add));
-  //   await tester.pump();
+      /// checking for Refresh button
+      final refreshKey = find.byKey(const Key("refresh_key_dog"));
+      expect(refreshKey, findsOneWidget);
 
-  //   // Verify that our counter has incremented.
-  //   expect(find.text('0'), findsNothing);
-  //   expect(find.text('1'), findsOneWidget);
-  // });
+      /// checking for Image Widget
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      final image1 = find.byKey(const Key("image"));
+      expect(image1, findsOneWidget);
+      await tester.tap(refreshKey);
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      final image2 = find.byKey(const Key("image"));
+      expect(image2, findsOneWidget);
+
+      final toProfile = find.byKey(const Key("to_profile_pg"));
+      expect(toProfile, findsOneWidget);
+      await tester.tap(toProfile);
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      /// Checking for next page navigation
+      final profilePg = find.byType(ProfilePg);
+      expect(profilePg, findsOneWidget);
+
+      /// checking for pop button
+      final popProfile = find.byKey(const Key("pop"));
+      expect(popProfile, findsOneWidget);
+      await tester.tap(popProfile);
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      /// back to randomn Page
+      final randomImgPg = find.byKey(const Key("RandomImgPg"));
+      expect(randomImgPg, findsOneWidget);
+    });
+  });
 }

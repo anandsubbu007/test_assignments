@@ -1,16 +1,46 @@
-# fininfocom
+# FinInfoCom - Assignment
 
-A new Flutter project.
+A Api Testing appllication using Flutter.
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### To Debug App
+ - flutter pub get
+ - flutter run
 
-A few resources to get you started if this is your first Flutter project:
+### To Run Test
+ - Unit Test
+    - flutter test test/unit_test.dart
+ - Widget Test
+     - flutter test test/widget_test.dart
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Pages in Application
+1. RandomImage Page
+2. Profile Page
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Supported Devices
+| Android |  IOS | Mac | Windows |
+|--|--|--|--|
+
+Application developed and tested on personal POCO M3
+
+---------------------------
+## SDK
+| Flutter SDK | 3.10.5 |
+-- | --
+| Dart SDK    | 3.0.5 |
+
+-----------------------------------
+## Implemented
+ - API using Dio
+ - Bluetooth turn on request with native code implementation for Android & IOS
+ - Unit Testing & Widget Testing
+
+
+# Tested On
+ - Emulator & PocoM3
+ * Ios Emulator doesn't allow to test blutooth functionality. so, can't able to test it. because i don't have IOS Device for devvelopment. Just written native code on IOS but Not Tested
+
+# Image
+

@@ -17,36 +17,42 @@ import os.log
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
     
-    var centralManager: CBCentralManager!
+ 
     func onCallBack(call: FlutterMethodCall, result: @escaping FlutterResult) {
-        let blutoothDelegate =   SwiftBluetoothEnablePlugin(flutterResult: result);
+
         os_log("Calling  : %@ ",call.method)
-        // os_log("LST State: %@ ",String(blutoothDelegate.lastKnownState ?? CBManagerState.unknown))
         switch call.method {
         case "enable":
+            let blutoothDelegate =   SwiftBluetoothEnablePlugin(flutterResult: result);
+            let dd = "\(String(describing: blutoothDelegate.lastKnownState))";
+             os_log("LST State: %@ ",dd)
             if (blutoothDelegate.lastKnownState == .poweredOn) {
                result("true")
            } else {
-               centralManager = CBCentralManager(delegate: blutoothDelegate, queue: nil)
+           if(dd){
+               result(dd)
+           }else{
+                          result("No Action found")
+}
            }
            return;
         default:
             return;
         }
     }
-    
-
 }
 
 
 public class SwiftBluetoothEnablePlugin: NSObject, CBCentralManagerDelegate {
-
+    var centralManager: CBCentralManager!
     var lastKnownState: CBManagerState!
     var flutterResult: FlutterResult!
     
     
-    init(flutterResult:@escaping FlutterResult){
+      init(flutterResult:@escaping FlutterResult){
         self.flutterResult=flutterResult;
+        super.init()
+        centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -54,12 +60,12 @@ public class SwiftBluetoothEnablePlugin: NSObject, CBCentralManagerDelegate {
         os_log("central.state is: %@", log: .default, type: .debug, _getStateString(state: lastKnownState));
         
         if (lastKnownState == .poweredOn){
-            flutterResult("true")
+            flutterResult("Turned On")
         } else {
-            flutterResult("false")
+            flutterResult("Unknown Issue Occurs")
         }
     }
-    
+
     private func _getStateString(state: CBManagerState) -> String {
         switch (state) {
         case .unknown:

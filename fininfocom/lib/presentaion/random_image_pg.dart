@@ -14,6 +14,7 @@ class _RandomImagePgState extends State<RandomImagePg> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key("RandomImgPg"),
       appBar: AppBar(
         title: const Text("RandomImage Screen"),
         centerTitle: true,
@@ -29,6 +30,7 @@ class _RandomImagePgState extends State<RandomImagePg> {
         ),
         actions: [
           IconButton(
+            key: const Key("to_profile_pg"),
             icon: const Icon(Icons.account_box_rounded),
             onPressed: () {
               Navigator.push(
@@ -44,6 +46,7 @@ class _RandomImagePgState extends State<RandomImagePg> {
           Padding(
             padding: const EdgeInsets.all(28.0),
             child: ElevatedButton(
+              key: const Key("refresh_key_dog"),
               onPressed: () {
                 setState(() {});
               },
@@ -55,6 +58,7 @@ class _RandomImagePgState extends State<RandomImagePg> {
                 future: AppRepo.fetchImage(),
                 builder: (context, snapshot) {
                   return Center(
+                    key: const Key("image"),
                     child: snapshot.hasData
                         ? Image.network(
                             snapshot.data!,
