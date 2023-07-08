@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1010578567055",
+    "project_id": "practice-1962e",
+    "storage_bucket": "practice-1962e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010578567055:android:ad287d52afb2442fd1a5fa",
+        "android_client_info": {
+          "package_name": "com.example.thiran_task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010578567055-tds3b5vocethj2gd5mk2u14kj399suus.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpEHsDDpqXRWSrNme1uS7or7WxVNhcFP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010578567055-tds3b5vocethj2gd5mk2u14kj399suus.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
