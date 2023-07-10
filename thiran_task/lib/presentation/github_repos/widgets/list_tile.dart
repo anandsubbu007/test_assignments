@@ -50,49 +50,5 @@ class GithubRepoItem extends StatelessWidget {
           )),
       trailing: detailW(),
     );
-    // return GestureDetector(
-    //     onTap: onTap,
-    //     child: Card(
-    //       margin: const EdgeInsets.all(4),
-    //       child: Padding(
-    //           padding: const EdgeInsets.all(16),
-    //           child: Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             mainAxisAlignment: MainAxisAlignment.start,
-    //             children: [
-    //               Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    // ClipRRect(
-    //     borderRadius: BorderRadius.circular(8.0),
-    //     child: CachedNetworkImage(
-    //       imageUrl: item.owner!.avatarUrl!,
-    //       placeholder: (context, url) => const Icon(
-    //         Icons.account_circle_outlined,
-    //         size: 50.0,
-    //       ),
-    //       errorWidget: (context, url, error) => const Icon(
-    //           Icons.account_circle_outlined,
-    //           size: 50.0),
-    //       width: 50.0,
-    //     )),
-    //                 const SizedBox(width: 20),
-    //                 Expanded(
-    //                     child: Column(
-    //                   crossAxisAlignment: CrossAxisAlignment.start,
-    //                   mainAxisAlignment: MainAxisAlignment.start,
-    //                   mainAxisSize: MainAxisSize.max,
-    //                   children: [
-    // Text(
-    //   item.name!,
-    //   style: const TextStyle(
-    //       fontWeight: FontWeight.bold, fontSize: 15),
-    // ),
-    //                     const SizedBox(height: 4),
-    //                     Text(item.fullName!)
-    //                   ],
-    //                 ))
-    //               ])
-    //             ],
-    //           )),
-    //     ));
   }
 }

@@ -43,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: "Firebase Reports",
                 margin: const EdgeInsets.only(top: 16),
                 onPressed: () {
-                
                   Navigator.pushNamed(context, Routes.firebaseList);
                 },
               ),

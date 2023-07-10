@@ -38,7 +38,7 @@ class _TransactionListScreenState extends State<TransactionListScreen> {
           future: DBProvider.db.getAllTransaction(),
           builder: (context, snapshot) {
             final datas = snapshot.data ?? [];
-            isErrorReportAvailable = datas.any(
+            final isErrorReportAvailable = datas.any(
                 (e) => e.transactionStatus.toString() == "Error".toString());
             return Row(
               children: [
@@ -92,6 +92,5 @@ class _TransactionListScreenState extends State<TransactionListScreen> {
     );
   }
 
-  bool isErrorReportAvailable = false;
   dynamic response;
 }

@@ -42,8 +42,10 @@ Application developed and tested on personal POCO M3
 
 # Info
 
-  - Automatic Mailing hasn't been tested due to lac of credential. But it was implemented Credentials nees to be mentioned in `presentation/utilities/mailler.dart` this file.
+  - Automatic Mailing hasn't been tested due to lack of credential. But it was implemented Credentials needs to be mentioned in `presentation/utilities/mailler.dart` this file.
   - Testing has't been requested in Task. so, havn't added any test cases.
+  - Theaming is also Not Requested - so, didn't follow flutter Theaming
+  - App Ui is also Not Provider.
 
 
 # App Images

@@ -2,9 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thiran_task/domain/di/app_preferences.dart';
 
-import '../../../infrastructure/db/database_utils.dart';
 import '../../../domain/model/error_response.dart';
 import '../../../domain/model/transaction_model.dart';
+import '../../../infrastructure/db/database_utils.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   TransactionBloc(TransactionInitial transactionInitial)
@@ -26,11 +26,11 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       DBProvider.db.getAllTransaction();
 
   bool get canIShowReport {
-    return DateTime.now()
-            .difference(AppPreferences.instance.lastMailPushTime)
-            .inDays
-            .abs() >
-        1;
+    final duration = DateTime.now()
+        .difference(AppPreferences.instance.lastMailPushTime)
+        .inDays;
+    final canI = duration.abs() >= 1;
+    return canI;
   }
 }
 
