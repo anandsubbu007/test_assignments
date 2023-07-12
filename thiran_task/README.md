@@ -1,7 +1,6 @@
 # Thiran Task 
 
-A three Usecases
-
+A Three Use cases
 
 ## Getting Started
 
@@ -10,7 +9,7 @@ A three Usecases
  - flutter run
 
 ### To Run Test
- - Not Requested In Assignment
+ - Not Mentioned In Assignment
 
 # Pages in Application
 1. Transaction Listing
@@ -42,10 +41,10 @@ Application developed and tested on personal POCO M3
 
 # Info
 
-  - Automatic Mailing hasn't been tested due to lack of credential. But it was implemented Credentials needs to be mentioned in `presentation/utilities/mailler.dart` this file.
-  - Testing has't been requested in Task. so, havn't added any test cases.
-  - Theaming is also Not Requested - so, didn't follow flutter Theaming
-  - App Ui is also Not Provider.
+  - Automatic Mailing hasn't been tested due to a lack of credentials. But it was implemented Credentials need to be mentioned in `presentation/utilities/mailler.dart` in this file.
+  - Testing hasn't been requested in Task. so, haven't added any test cases.
+  - Theaming is also Not Requested - so, didn't follow Flutter Theaming
+  - App Ui is also Not a Provider.
 
 
 # App Images
