@@ -54,7 +54,8 @@ class AppFunctions {
         AppPreferences.instance.nextPageUrl!.isNotEmpty) {
       return AppPreferences.instance.nextPageUrl!;
     } else {
-      return "https://api.github.com/search/repositories?q=created:%3E${getDateMonthBefore()}&sort=stars&order=desc&page=32";
+    // https://api.github.com/search/repositories?q=created:>2022-04-29&sort=stars&order=desc
+      return "https://api.github.com/search/repositories?q=created:%3E${getDateMonthBefore()}&sort=stars&order=desc&page=0";
     }
   }
 }

@@ -15,6 +15,8 @@ class TransactionListScreen extends StatefulWidget {
 }
 
 class _TransactionListScreenState extends State<TransactionListScreen> {
+
+
   Widget get errorReportButton =>
       !context.watch<TransactionBloc>().canIShowReport
           ? const SizedBox()

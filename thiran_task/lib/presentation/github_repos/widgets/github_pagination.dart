@@ -80,12 +80,12 @@ class _GithubListViewState extends State<GithubListView> {
                         child: Text("Page loading completed."),
                       ))
                   : const Padding(
-                      padding: EdgeInsets.only(bottom: 30, top: 10),
+                      padding: EdgeInsets.only(bottom: 30, top: 18),
                       child: Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Page loading .... "),
+                            Text("Page loading ....    "),
                             CircularProgressIndicator()
                           ],
                         ),
