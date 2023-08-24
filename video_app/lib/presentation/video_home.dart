@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_app/bloc/home_bloc.dart';
-import 'package:video_app/presentation/dialog_ui.dart';
 import 'package:video_app/widget/video_player.dart';
-import 'package:video_player/video_player.dart';
+import 'package:flutter_meedu_videoplayer/meedu_player.dart';
 
 class HomePg extends StatefulWidget {
   const HomePg({super.key});
@@ -13,10 +12,9 @@ class HomePg extends StatefulWidget {
 }
 
 class HomePgState extends State<HomePg> {
-  late VideoPlayerController _controller;
+  late MeeduPlayerController _controller;
 
   Future loadAsset() async {
-    await _controller.initialize();
     await _controller.play();
     return true;
   }
@@ -45,8 +43,8 @@ class HomePgState extends State<HomePg> {
                         return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasData) {
                         _controller = snapshot.data!;
-                        _controller.value =
-                            const VideoPlayerValue(duration: Duration.zero);
+                        // _controller.value =
+                        //     const VideoPlayerValue(duration: Duration.zero);
                         return FutureBuilder(
                             future: loadAsset(),
                             builder: (context, snapshot) {
@@ -62,14 +60,6 @@ class HomePgState extends State<HomePg> {
                       }
                     }),
               ),
-
-              /// Dialog
-              StreamBuilder(
-                  stream: context.read<HomeBloc>().dialogState.stream,
-                  builder: (context, snapshot) {
-                    if (snapshot.data == null) return const SizedBox();
-                    return DialogContent(state: snapshot.data!);
-                  })
             ],
           )),
     );
