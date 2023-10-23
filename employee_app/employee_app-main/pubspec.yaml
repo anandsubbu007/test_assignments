@@ -1,0 +1,55 @@
+name: employee_app
+description: A new Flutter project.
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  device_preview: 
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.2
+  flutter_svg: ^2.0.4
+  flutter_swipe_action_cell: ^3.1.1
+  freezed_annotation: ^2.2.0
+  get_it: ^7.6.0
+  injectable: ^2.1.1
+  intl: ^0.18.0
+  json_annotation: ^4.8.0
+  json_serializable: ^6.6.1
+  path_provider: ^2.0.15
+  sqflite: ^2.2.8+4
+  syncfusion_flutter_datepicker: ^19.4.50
+
+dev_dependencies:
+  build_runner: ^2.3.3
+  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+  freezed: ^2.3.2
+  injectable_generator: ^2.1.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/launcher_icon.png"
+  min_sdk_android: 21
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+# The following section is specific to Flutter packages.
+flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/icons/
