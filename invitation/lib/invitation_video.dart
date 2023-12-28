@@ -73,7 +73,7 @@ class _AssetVideoState extends State<_AssetVideo> {
 
   int i = 0;
   void play() async {
-    await Future.delayed(const Duration(milliseconds: 1000), () async {
+    await Future.delayed(const Duration(milliseconds: 500), () async {
       await _controller.setVolume(0);
       _controller.play().onError((error, stackTrace) => onError(error));
     });
