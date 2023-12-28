@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_player/video_player.dart';
 
@@ -27,7 +26,7 @@ class _AssetVideoState extends State<_AssetVideo> {
   bool isVideoEnded = false;
   @override
   void initState() {
-    isVideoEnded = false;
+    reset();
     super.initState();
     _controller =
         VideoPlayerController.asset('assets/video/Red_Wedding_Invitation.mp4');
@@ -38,16 +37,48 @@ class _AssetVideoState extends State<_AssetVideo> {
                   1 &&
               _controller.value.duration.inMicroseconds > 0;
       if (isVideoEnded) _controller.pause();
-      debugPrint(_controller.value.toString());
+      debugPrint(_controller.toString());
       setState(() {});
     });
     // _controller.setLooping(true);
-    _controller.initialize().then((_) => setState(() {}));
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _controller.play();
+    _controller.initialize().then((_) {
+      play();
+      setState(() {});
+    }, onError: (e) {
+      debugPrint(e.toString());
+      switchImage();
     });
   }
 
+  void reset() {
+    isVideoEnded = false;
+    i = 0;
+    showImageIntead = false;
+  }
+
+  int i = 0;
+  void play() async {
+    try {
+      await _controller.play();
+    } catch (e) {
+      debugPrint(e.toString());
+      if (i < 300) {
+        i += 1;
+        Future.delayed(const Duration(milliseconds: 500), () {
+          play();
+        });
+      } else {
+        switchImage();
+      }
+    }
+  }
+
+  void switchImage() {
+    showImageIntead = true;
+    setState(() {});
+  }
+
+  bool showImageIntead = false;
   @override
   void dispose() {
     _controller.dispose();
@@ -64,23 +95,31 @@ class _AssetVideoState extends State<_AssetVideo> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black54,
-      body: Stack(
-        children: [
-          LayoutBuilder(
-            builder: (context, constraints) => _controller.value.isInitialized
+      body: LayoutBuilder(
+        builder: (context, constraints) => showImageIntead
+            ? Center(
+                child: Image.asset(
+                  "assets/images/weeding_card.png",
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.center,
+                ),
+              )
+            : _controller.value.isInitialized
                 ? AspectRatio(
                     aspectRatio: constraints.maxWidth / constraints.maxHeight,
                     // _controller.value.aspectRatio,
                     child: VideoPlayer(_controller),
                   )
-                : Center(
-                    child: Image.asset(
-                      "assets/images/preloader.gif",
-                    ),
-                  ),
-          ),
-          // if (isVideoEnded)
-        ],
+                : Builder(builder: (context) {
+                    Future.delayed(const Duration(seconds: 3), () {
+                      switchImage();
+                    });
+                    return Center(
+                      child: Image.asset(
+                        "assets/images/preloader.gif",
+                      ),
+                    );
+                  }),
       ),
       floatingActionButton: Row(
         children: [
