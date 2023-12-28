@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_player/video_player.dart';
 
@@ -30,23 +31,37 @@ class _AssetVideoState extends State<_AssetVideo> {
     super.initState();
     _controller =
         VideoPlayerController.asset('assets/video/Red_Wedding_Invitation.mp4');
+    listener();
+    videoInit();
+    Future.delayed(const Duration(seconds: 20), () {
+      switchImage();
+    });
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+      play();
+    });
+  }
 
+  void videoInit() {
+    _controller.initialize().then((_) {
+      setState(() {});
+    }, onError: (e) {
+      debugPrint(e.toString());
+      switchImage();
+    });
+  }
+
+  void listener() {
     _controller.addListener(() {
       isVideoEnded =
           (_controller.value.duration - _controller.value.position).inSeconds ==
                   1 &&
               _controller.value.duration.inMicroseconds > 0;
-      if (isVideoEnded) _controller.pause();
+      if (isVideoEnded) {
+        _controller.pause();
+      }
       debugPrint(_controller.toString());
+
       setState(() {});
-    });
-    // _controller.setLooping(true);
-    _controller.initialize().then((_) {
-      play();
-      setState(() {});
-    }, onError: (e) {
-      debugPrint(e.toString());
-      switchImage();
     });
   }
 
@@ -58,18 +73,21 @@ class _AssetVideoState extends State<_AssetVideo> {
 
   int i = 0;
   void play() async {
-    try {
-      await _controller.play();
-    } catch (e) {
-      debugPrint(e.toString());
-      if (i < 300) {
-        i += 1;
-        Future.delayed(const Duration(milliseconds: 500), () {
-          play();
-        });
-      } else {
-        switchImage();
-      }
+    await Future.delayed(const Duration(milliseconds: 1000), () async {
+      await _controller.setVolume(0);
+      _controller.play().onError((error, stackTrace) => onError(error));
+    });
+  }
+
+  void onError(e) {
+    debugPrint(e.toString());
+    if (i < 30) {
+      i += 1;
+      Future.delayed(const Duration(milliseconds: 500), () {
+        play();
+      });
+    } else {
+      switchImage();
     }
   }
 
@@ -111,9 +129,6 @@ class _AssetVideoState extends State<_AssetVideo> {
                     child: VideoPlayer(_controller),
                   )
                 : Builder(builder: (context) {
-                    Future.delayed(const Duration(seconds: 3), () {
-                      switchImage();
-                    });
                     return Center(
                       child: Image.asset(
                         "assets/images/preloader.gif",

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:invitation/invitation_video.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
