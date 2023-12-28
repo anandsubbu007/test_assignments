@@ -30,7 +30,7 @@ class _AssetVideoState extends State<_AssetVideo> {
         VideoPlayerController.asset('assets/video/Red_Wedding_Invitation.mp4');
     listener();
     videoInit();
-    Future.delayed(const Duration(seconds: 20), () {
+    Future.delayed(const Duration(seconds: 16), () {
       switchImage();
     });
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
@@ -115,10 +115,29 @@ class _AssetVideoState extends State<_AssetVideo> {
       body: LayoutBuilder(
         builder: (context, constraints) => showImageIntead
             ? Center(
-                child: Image.asset(
-                  "assets/images/weeding_card.png",
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.center,
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      "assets/images/weeding_card.png",
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.center,
+                    ),
+                    Positioned.fill(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Spacer(flex: 6),
+                          Expanded(
+                            flex: 1,
+                            child: InkWell(
+                                onTap: toMap, child: const SizedBox(height: 60)),
+                          ),
+                          const Spacer(flex: 2)
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               )
             : _controller.value.isInitialized
