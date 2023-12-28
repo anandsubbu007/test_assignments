@@ -9,9 +9,6 @@ class InvitationVideo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0xFFB5163E),
-
-      // #
       body: _AssetVideo(),
     );
   }
@@ -109,10 +106,12 @@ class _AssetVideoState extends State<_AssetVideo> {
     launchUrlString(marathiPadapuVedu);
   }
 
+  int tapCount = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black54,
+      backgroundColor:
+          _controller.value.isInitialized ? Colors.black54 : Colors.white,
       body: LayoutBuilder(
         builder: (context, constraints) => showImageIntead
             ? Center(
@@ -128,13 +127,19 @@ class _AssetVideoState extends State<_AssetVideo> {
                     // _controller.value.aspectRatio,
                     child: VideoPlayer(_controller),
                   )
-                : Builder(builder: (context) {
-                    return Center(
+                : InkWell(
+                    child: Center(
                       child: Image.asset(
-                        "assets/images/preloader.gif",
+                        "assets/images/pre_loader.gif",
                       ),
-                    );
-                  }),
+                    ),
+                    onTap: () {
+                      tapCount += 1;
+                      if (tapCount > 2) {
+                        switchImage();
+                      }
+                    },
+                  ),
       ),
       floatingActionButton: Row(
         children: [
