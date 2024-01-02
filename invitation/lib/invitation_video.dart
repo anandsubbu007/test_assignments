@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_player/video_player.dart';
+import 'package:pulsator/pulsator.dart';
 
 class InvitationVideo extends StatelessWidget {
   const InvitationVideo({super.key});
@@ -56,7 +57,7 @@ class _AssetVideoState extends State<_AssetVideo> {
       if (isVideoEnded) {
         _controller.pause();
       }
-      debugPrint(_controller.toString());
+      // debugPrint(_controller.toString());
 
       setState(() {});
     });
@@ -106,72 +107,132 @@ class _AssetVideoState extends State<_AssetVideo> {
     launchUrlString(marathiPadapuVedu);
   }
 
+  Widget button() {
+    return SizedBox(
+      height: 80,
+      width: 80,
+      child: InkWell(
+        onTap: toMap,
+        child: Pulsator(
+          fit: PulseFit.contain,
+          autoStart: true,
+          startFromScratch: false,
+          style: const PulseStyle(color: Color(0xFFFCC403)),
+          count: 3,
+          duration: const Duration(seconds: 3),
+          repeat: 0,
+          child: Container(
+              padding: const EdgeInsets.all(9),
+              decoration: BoxDecoration(
+                  color: const Color(0xFFFCC403),
+                  borderRadius: BorderRadius.circular(200)),
+              child:
+                  const Icon(Icons.drive_eta_sharp, color: Color(0xFFB5163E))),
+        ),
+      ),
+    );
+  }
+
   int tapCount = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
           _controller.value.isInitialized ? Colors.black54 : Colors.white,
-      body: LayoutBuilder(
-        builder: (context, constraints) => showImageIntead
-            ? Center(
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      "assets/images/weeding_card.png",
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.center,
-                    ),
-                    Positioned.fill(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          const Spacer(flex: 6),
-                          Expanded(
-                            flex: 1,
-                            child: InkWell(
-                                onTap: toMap, child: const SizedBox(height: 60)),
-                          ),
-                          const Spacer(flex: 2)
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            : _controller.value.isInitialized
-                ? AspectRatio(
-                    aspectRatio: constraints.maxWidth / constraints.maxHeight,
-                    // _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
-                  )
-                : InkWell(
-                    child: Center(
-                      child: Image.asset(
-                        "assets/images/pre_loader.gif",
-                      ),
-                    ),
-                    onTap: () {
-                      tapCount += 1;
-                      if (tapCount > 2) {
-                        switchImage();
-                      }
-                    },
-                  ),
-      ),
-      floatingActionButton: Row(
+      body: Stack(
         children: [
-          const SizedBox(width: 35),
-          const Spacer(),
-          FloatingActionButton(
-            backgroundColor: const Color(0xFFFCC403),
-            focusColor: const Color(0xFFB5163E),
-            onPressed: toMap,
-            child: const Icon(Icons.drive_eta_sharp, color: Color(0xFFB5163E)),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return Image.asset(
+                "assets/images/Red_Wedding_Invitation.gif",
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    "assets/images/weeding_card.png",
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.center,
+                  );
+                },
+              );
+              // return showImageIntead
+              //     ? Center(
+              //         child: Stack(
+              //           children: [
+              //             Image.asset(
+              //               "assets/images/weeding_card.png",
+              //               fit: BoxFit.scaleDown,
+              //               alignment: Alignment.center,
+              //             ),
+              //             Positioned.fill(
+              //               child: Column(
+              //                 crossAxisAlignment: CrossAxisAlignment.stretch,
+              //                 mainAxisAlignment: MainAxisAlignment.end,
+              //                 children: [
+              //                   const Spacer(flex: 6),
+              //                   Expanded(
+              //                     flex: 1,
+              //                     child: InkWell(
+              //                         onTap: toMap,
+              //                         child: const SizedBox(height: 60)),
+              //                   ),
+              //                   const Spacer(flex: 2)
+              //                 ],
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       )
+              //     : _controller.value.isInitialized
+              //         ? AspectRatio(
+              //             aspectRatio: constraints.maxWidth / constraints.maxHeight,
+              //             // _controller.value.aspectRatio,
+              //             child: VideoPlayer(_controller),
+              //           )
+              //         : InkWell(
+              //             child: Center(
+              //               child: Image.asset(
+              //                 "assets/images/pre_loader.gif",
+              //               ),
+              //             ),
+              //             onTap: () {
+              //               tapCount += 1;
+              //               if (tapCount > 2) {
+              //                 switchImage();
+              //               }
+              //             },
+              //           );
+            },
           ),
+          Positioned.fill(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Spacer(flex: 6),
+                Expanded(
+                  flex: 1,
+                  child:
+                      InkWell(onTap: toMap, child: const SizedBox(height: 60)),
+                ),
+                const Spacer(flex: 2)
+              ],
+            ),
+          ),
+          Positioned(bottom: 5, right: 5, child: button())
         ],
       ),
+      // floatingActionButton: Row(
+      //   children: [
+      //     const SizedBox(width: 35),
+      //     const Spacer(),
+      // FloatingActionButton(
+      //   backgroundColor: const Color(0xFFFCC403),
+      //   focusColor: const Color(0xFFB5163E),
+      //   onPressed: toMap,
+      //   child: const Icon(Icons.drive_eta_sharp, color: Color(0xFFB5163E)),
+      // ),
+      //   ],
+      // ),
       // bottomNavigationBar: Container(
       //   padding: EdgeInsets.all(5),
       //   color: const Color(0xFFFCC403),
