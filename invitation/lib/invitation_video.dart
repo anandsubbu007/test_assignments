@@ -1,11 +1,11 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:invitation/html_widget.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:video_player/video_player.dart';
+import 'package:intro/intro.dart';
 import 'package:pulsator/pulsator.dart';
+
+final _introController = IntroController(stepCount: 1);
 
 class InvitationVideo extends StatelessWidget {
   const InvitationVideo({super.key});
@@ -13,7 +13,25 @@ class InvitationVideo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _AssetVideo(),
+      backgroundColor: Colors.black54,
+      body: Intro(
+        controller: _introController,
+        cardDecoration: IntroCardDecoration(
+          align: IntroCardAlign.outsideLeftTop,
+          tapBarrierToContinue: true,
+          closeButtonLabel: "Close",
+          closeButtonStyle: ButtonStyle(
+            backgroundColor:
+                MaterialStateColor.resolveWith((states) => Colors.black),
+            shape: MaterialStateProperty.resolveWith((states) =>
+                const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(5)))),
+          ),
+          padding: const EdgeInsets.all(10),
+          backgroundColor: Colors.black12,
+        ),
+        child: _AssetVideo(),
+      ),
     );
   }
 }
@@ -24,90 +42,20 @@ class _AssetVideo extends StatefulWidget {
 }
 
 class _AssetVideoState extends State<_AssetVideo> {
-  late VideoPlayerController _controller;
   bool isVideoEnded = false;
   @override
   void initState() {
-    // reset();
     super.initState();
-    // _controller =
-    //     VideoPlayerController.asset('assets/video/Red_Wedding_Invitation.mp4');
-    // listener();
-    // videoInit();
-    // Future.delayed(const Duration(seconds: 16), () {
-    //   switchImage();
-    // });
-    // SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
-    //   play();
-    // });
+    Future.delayed(const Duration(seconds: 2), () {
+      if (!isTapped) _introController.start(context);
+    });
   }
 
-  // void videoInit() {
-  //   _controller.initialize().then((_) {
-  //     setState(() {});
-  //   }, onError: (e) {
-  //     debugPrint(e.toString());
-  //     switchImage();
-  //   });
-  // }
-
-  // void listener() {
-  //   _controller.addListener(() {
-  //     isVideoEnded =
-  //         (_controller.value.duration - _controller.value.position).inSeconds ==
-  //                 1 &&
-  //             _controller.value.duration.inMicroseconds > 0;
-  //     if (isVideoEnded) {
-  //       _controller.pause();
-  //     }
-  //     // debugPrint(_controller.toString());
-
-  //     setState(() {});
-  //   });
-  // }
-
-  // void reset() {
-  //   isVideoEnded = false;
-  //   i = 0;
-  //   showImageIntead = false;
-  // }
-
-  // int i = 0;
-  // void play() async {
-  //   await Future.delayed(const Duration(milliseconds: 500), () async {
-  //     await _controller.setVolume(0);
-  //     _controller.play().onError((error, stackTrace) => onError(error));
-  //   });
-  // }
-
-  // void onError(e) {
-  //   debugPrint(e.toString());
-  //   if (i < 30) {
-  //     i += 1;
-  //     Future.delayed(const Duration(milliseconds: 500), () {
-  //       play();
-  //     });
-  //   } else {
-  //     switchImage();
-  //   }
-  // }
-
-  // void switchImage() {
-  //   showImageIntead = true;
-  //   setState(() {});
-  // }
-
-  // bool showImageIntead = false;
-  @override
-  void dispose() {
-    // _controller.dispose();
-    super.dispose();
-  }
+  bool isTapped = false;
 
   void toMap() {
-    const marathiPadapuVedu =
-        "https://maps.app.goo.gl/b1oirtsRxSFzf1EA7?g_st=ic";
-    launchUrlString(marathiPadapuVedu);
+    isTapped = true;
+    const LocationBottomSheet().show(context);
   }
 
   Widget button() {
@@ -125,12 +73,10 @@ class _AssetVideoState extends State<_AssetVideo> {
           duration: const Duration(seconds: 3),
           repeat: 0,
           child: Container(
-              padding: const EdgeInsets.all(9),
-              decoration: BoxDecoration(
-                  color: const Color(0xFFFCC403),
-                  borderRadius: BorderRadius.circular(200)),
-              child:
-                  const Icon(Icons.drive_eta_sharp, color: Color(0xFFB5163E))),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.fromLTRB(12, 10, 10, 10),
+            child: Image.asset("assets/images/google_location.png"),
+          ),
         ),
       ),
     );
@@ -140,25 +86,43 @@ class _AssetVideoState extends State<_AssetVideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black54,
-      // _controller.value.isInitialized ? Colors.black54 : Colors.white,
+      backgroundColor: Colors.transparent,
       body: Center(
         child: Stack(
           children: [
-            // Center(child: GifRenderer()),
-            Image.asset(
-              "assets/images/Red_Wedding_Invitation.gif",
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) {
-                print(error);
-                print(stackTrace);
-                return Image.asset(
-                  "assets/images/weeding_card.png",
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.center,
-                );
-              },
-              semanticLabel: "Anand_wedding_invitaiton",
+            const Positioned.fill(child: SizedBox()),
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 380),
+                child: Card(
+                  color: Colors.white,
+                  margin: const EdgeInsets.all(25),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      "assets/images/happy.gif",
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Image.asset(
+                "assets/images/Red_Wedding_Invitation.gif",
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) {
+                  print(error);
+                  print(stackTrace);
+                  return Image.asset(
+                    "assets/images/weeding_card.png",
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.center,
+                  );
+                },
+                semanticLabel: "Anand_wedding_invitaiton",
+              ),
             ),
             Positioned.fill(
               child: Column(
@@ -175,77 +139,118 @@ class _AssetVideoState extends State<_AssetVideo> {
                 ],
               ),
             ),
-            Positioned(bottom: 5, right: 5, child: button())
+            Positioned(
+                bottom: 5,
+                right: 5,
+                child: IntroStepTarget(
+                  step: 1,
+                  controller: Intro.of(context).controller,
+                  cardContents: const TextSpan(
+                      text: "Navigato To Location",
+                      style: TextStyle(fontWeight: FontWeight.w500)),
+                  child: button(),
+                ))
           ],
         ),
       ),
-      // floatingActionButton: Row(
-      //   children: [
-      //     const SizedBox(width: 35),
-      //     const Spacer(),
-      // FloatingActionButton(
-      //   backgroundColor: const Color(0xFFFCC403),
-      //   focusColor: const Color(0xFFB5163E),
-      //   onPressed: toMap,
-      //   child: const Icon(Icons.drive_eta_sharp, color: Color(0xFFB5163E)),
-      // ),
-      //   ],
-      // ),
-      // bottomNavigationBar: Container(
-      //   padding: EdgeInsets.all(5),
-      //   color: const Color(0xFFFCC403),
-      //   child: Row(children: [
-      //     ElevatedButton(onPressed: () {}, child: Text("Location"))
-      //   ]),
-      // ),
     );
   }
 }
-         // return showImageIntead
-                //     ? Center(
-                //         child: Stack(
-                //           children: [
-                //             Image.asset(
-                //               "assets/images/weeding_card.png",
-                //               fit: BoxFit.scaleDown,
-                //               alignment: Alignment.center,
-                //             ),
-                //             Positioned.fill(
-                //               child: Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                //                 mainAxisAlignment: MainAxisAlignment.end,
-                //                 children: [
-                //                   const Spacer(flex: 6),
-                //                   Expanded(
-                //                     flex: 1,
-                //                     child: InkWell(
-                //                         onTap: toMap,
-                //                         child: const SizedBox(height: 60)),
-                //                   ),
-                //                   const Spacer(flex: 2)
-                //                 ],
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       )
-                //     : _controller.value.isInitialized
-                //         ? AspectRatio(
-                //             aspectRatio: constraints.maxWidth / constraints.maxHeight,
-                //             // _controller.value.aspectRatio,
-                //             child: VideoPlayer(_controller),
-                //           )
-                //         : InkWell(
-                //             child: Center(
-                //               child: Image.asset(
-                //                 "assets/images/pre_loader.gif",
-                //               ),
-                //             ),
-                //             onTap: () {
-                //               tapCount += 1;
-                //               if (tapCount > 2) {
-                //                 switchImage();
-                //               }
-                //             },
-                //           );
-         
+
+class LocationBottomSheet extends StatelessWidget {
+  const LocationBottomSheet({super.key});
+  void show(BuildContext context) {
+    showModalBottomSheet(context: context, builder: (ctx) => this);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+              color: Colors.black12,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+          width: double.infinity,
+          child: const Text(
+            "Events Location",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
+          child: IntrinsicWidth(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Weeding Location\n(11/02/2024 - 9.00am-12.00am)",
+                    textAlign: TextAlign.center,
+                  ),
+                  ElevatedButton(
+                    onPressed: Actions.toKaraikudi,
+                    child: Text("Marathi Padaippu Veedu"),
+                  ),
+                  // SizedBox(height: 5),
+                  // Center(
+                  //   child: ElevatedButton(
+                  //     onPressed: Actions.toKaraikudi,
+                  //     child: Text("Car Parking"),
+                  //   ),
+                  // ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Ponnamaravathi Location\n(10/02/2024)",
+                    textAlign: TextAlign.center,
+                  ),
+                  ElevatedButton(
+                    onPressed: Actions.toPonnamaravathi,
+                    child: Text("Veera Perumal Thirumana Mandapam"),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Reception\n(18/02/2024 - Evening)",
+                    textAlign: TextAlign.center,
+                  ),
+                  ElevatedButton(
+                    onPressed: Actions.toReception,
+                    child: Text("City Hall Residency, Mannai"),
+                  ),
+                  SizedBox(height: 15),
+                ]),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Actions {
+  static void toKaraikudi() {
+    const marathiPadapuVedu =
+        "https://maps.app.goo.gl/b1oirtsRxSFzf1EA7?g_st=ic";
+    launchUrlString(marathiPadapuVedu);
+  }
+
+  static void toKaraikudiCarParking() {
+    const marathiPadapuVedu =
+        "https://maps.app.goo.gl/b1oirtsRxSFzf1EA7?g_st=ic";
+    launchUrlString(marathiPadapuVedu);
+  }
+
+  static void toPonnamaravathi() {
+    const location = "https://maps.app.goo.gl/wLKtJBsHx1n5Rzhz5";
+    launchUrlString(location);
+  }
+
+  static void toReception() {
+    const location = "https://maps.app.goo.gl/hX5mswyhxkwHXqAX6";
+    launchUrlString(location);
+  }
+}
