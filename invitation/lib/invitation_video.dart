@@ -49,7 +49,7 @@ class _AssetVideoState extends State<_AssetVideo> {
     Future.delayed(const Duration(seconds: 2), () {
       if (!isTapped) {
         _introController.start(context);
-        Future.delayed(const Duration(seconds: 2), () {
+        Future.delayed(const Duration(seconds: 3), () {
           _introController.close();
         });
       }
@@ -70,17 +70,32 @@ class _AssetVideoState extends State<_AssetVideo> {
       child: InkWell(
         onTap: toMap,
         child: Pulsator(
-          fit: PulseFit.contain,
+          fit: PulseFit.cover,
           autoStart: true,
           startFromScratch: false,
-          style: const PulseStyle(color: Color(0xFFFCC403)),
+          style: const PulseStyle(color: Colors.white),
           count: 3,
           duration: const Duration(seconds: 3),
           repeat: 0,
-          child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.fromLTRB(12, 10, 10, 10),
-            child: Image.asset("assets/images/google_location.png"),
+          child: Center(
+            child: Container(
+              height: 60,
+              width: 60,
+              alignment: Alignment.center,
+              margin: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+              padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
+              decoration: BoxDecoration(
+                  color: Colors.white60,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: const [
+                    BoxShadow(
+                        offset: Offset(0, 0),
+                        color: Colors.black54,
+                        blurRadius: 4,
+                        spreadRadius: 2)
+                  ]),
+              child: Image.asset("assets/images/google_location.png"),
+            ),
           ),
         ),
       ),
@@ -108,20 +123,20 @@ class _AssetVideoState extends State<_AssetVideo> {
                     );
                   }),
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 380),
-                child: Card(
-                  color: Colors.white,
-                  margin: const EdgeInsets.all(25),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset("assets/images/happy.gif"),
-                  ),
-                ),
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.center,
+            //   child: Container(
+            //     constraints: const BoxConstraints(maxWidth: 380),
+            //     child: Card(
+            //       color: Colors.white,
+            //       margin: const EdgeInsets.all(25),
+            //       child: Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: Image.asset("assets/images/happy.gif"),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Align(
               alignment: Alignment.center,
               child: Image.asset(
