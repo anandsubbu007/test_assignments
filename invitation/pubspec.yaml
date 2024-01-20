@@ -33,7 +33,6 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^6.2.2
-  video_player: ^2.8.1
   pulsator: ^1.0.0+2
   intro: ^1.2.4
 

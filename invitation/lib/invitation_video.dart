@@ -47,7 +47,12 @@ class _AssetVideoState extends State<_AssetVideo> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
-      if (!isTapped) _introController.start(context);
+      if (!isTapped) {
+        _introController.start(context);
+        Future.delayed(const Duration(seconds: 2), () {
+          _introController.close();
+        });
+      }
     });
   }
 
@@ -93,6 +98,18 @@ class _AssetVideoState extends State<_AssetVideo> {
             const Positioned.fill(child: SizedBox()),
             Align(
               alignment: Alignment.center,
+              child: FutureBuilder(
+                  future: Future.delayed(const Duration(seconds: 2)),
+                  builder: (context, snapshot) {
+                    return Image.asset(
+                      "assets/images/weeding_card.png",
+                      fit: BoxFit.contain,
+                      semanticLabel: "Anand_wedding_invitaiton_Card",
+                    );
+                  }),
+            ),
+            Align(
+              alignment: Alignment.center,
               child: Container(
                 constraints: const BoxConstraints(maxWidth: 380),
                 child: Card(
@@ -100,9 +117,7 @@ class _AssetVideoState extends State<_AssetVideo> {
                   margin: const EdgeInsets.all(25),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      "assets/images/happy.gif",
-                    ),
+                    child: Image.asset("assets/images/happy.gif"),
                   ),
                 ),
               ),
@@ -110,7 +125,7 @@ class _AssetVideoState extends State<_AssetVideo> {
             Align(
               alignment: Alignment.center,
               child: Image.asset(
-                "assets/images/Red_Wedding_Invitation.gif",
+                "assets/images/red_wedding_invitation.gif",
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) {
                   print(error);
@@ -140,8 +155,8 @@ class _AssetVideoState extends State<_AssetVideo> {
               ),
             ),
             Positioned(
-                bottom: 5,
-                right: 5,
+                top: 7,
+                right: 6,
                 child: IntroStepTarget(
                   step: 1,
                   controller: Intro.of(context).controller,
